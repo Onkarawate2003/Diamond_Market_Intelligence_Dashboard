@@ -11,7 +11,7 @@ This project provides a comprehensive analysis of the classic Diamonds dataset, 
   - Visualization of price distributions and feature relationships.
 - **`app.py`**: A Streamlit-based interactive dashboard that allows users to:
   - Filter diamonds by price range and cut quality.
-  - Visualize the relationship between Carat and Price using interactive Plotly charts.
+  - Visualize the average price per cut quality using interactive Plotly column charts.
   - View a dynamic table of the top 10 most expensive diamonds based on active filters.
 - **`correlation_heatmap.png`**: A visualization showing the correlation between various diamond features.
 - **`price_distribution.png`**: A chart showing the frequency distribution of diamond prices in the dataset.
@@ -25,7 +25,7 @@ This project provides a comprehensive analysis of the classic Diamonds dataset, 
 
 ### Interactive Dashboard
 - **Sidebar Controls**: Real-time filtering for deep dives into specific market segments.
-- **Interactive Plotting**: Plotly-powered scatter plots with hover details.
+- **Interactive Plotting**: Plotly-powered column charts with detailed market comparisons.
 - **Top 10 List**: Instant identification of premium diamonds within filtered criteria.
 
 ## Getting Started
