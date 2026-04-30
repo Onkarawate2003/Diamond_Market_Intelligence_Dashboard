@@ -56,15 +56,25 @@ col1, col2 = st.columns([2, 1])
 with col1:
     st.subheader("Carat vs. Price Analysis")
     if not filtered_df.empty:
+        # Group carats by rounding to nearest 0.2 to create distinct, visible columns
+        filtered_df['carat_group'] = (filtered_df['carat'] * 5).round() / 5
+        # Calculate average price per group for a clear visualization
+        visible_df = filtered_df.groupby('carat_group')['price'].mean().reset_index()
+        # Convert to string to ensure discrete bars on the x-axis
+        visible_df['carat_group'] = visible_df['carat_group'].astype(str)
+        
         fig = px.bar(
-            filtered_df,
-            x="carat",
+            visible_df,
+            x="carat_group",
             y="price",
-            color="cut",
-            title=f"Carat vs. Price (Filtered: {len(filtered_df)} diamonds)",
-            labels={"carat": "Carat Weight", "price": "Price ($)"},
-            template="plotly_white"
+            color="price",
+            title="Average Price by Carat Weight (Grouped)",
+            labels={"carat_group": "Carat Weight", "price": "Average Price ($)"},
+            template="plotly_white",
+            color_continuous_scale="Reds"
         )
+        # Force the bars to be wider and more visible
+        fig.update_layout(bargap=0.2)
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data matches the selected filters.")
