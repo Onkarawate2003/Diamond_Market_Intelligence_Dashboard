@@ -54,18 +54,23 @@ if selected_cut != "All":
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader("Average Price by Cut")
+    st.subheader("Carat vs. Price Analysis")
     if not filtered_df.empty:
-        # Calculate average price by cut for the column chart
-        avg_price_df = filtered_df.groupby('cut')['price'].mean().sort_values(ascending=False).reset_index()
+        # Bin carats for the column chart to show "Carat vs. Price" in bar format
+        filtered_df['carat_range'] = pd.cut(
+            filtered_df['carat'], 
+            bins=[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.5], 
+            labels=['0-0.5', '0.5-1.0', '1.0-1.5', '1.5-2.0', '2.0-2.5', '2.5-3.0', '3.0-3.5', '3.5-4.0', '4.0-4.5', '4.5+']
+        )
+        avg_price_df = filtered_df.groupby('carat_range')['price'].mean().reset_index()
         
         fig = px.bar(
             avg_price_df,
-            x="cut",
+            x="carat_range",
             y="price",
-            color="cut",
-            title=f"Average Price by Cut (Filtered: {len(filtered_df)} diamonds)",
-            labels={"cut": "Cut Quality", "price": "Average Price ($)"},
+            color="carat_range",
+            title=f"Average Price by Carat Range (Filtered: {len(filtered_df)} diamonds)",
+            labels={"carat_range": "Carat Weight Range", "price": "Average Price ($)"},
             template="plotly_white"
         )
         st.plotly_chart(fig, use_container_width=True)
