@@ -9,10 +9,16 @@ st.set_page_config(page_title="Diamond Explorer Dashboard", layout="wide")
 st.title("💎 Diamond Explorer Dashboard")
 st.markdown("Explore the diamonds dataset with interactive filters and visualizations.")
 
+import os
+
 # Data Loading (Cached for performance)
 @st.cache_data
 def load_data():
-    df = pd.read_csv("diamonds.csv")
+    # Construct path relative to the script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(script_dir, "diamonds.csv")
+    
+    df = pd.read_csv(data_path)
     if 'Unnamed: 0' in df.columns:
         df.drop(columns=['Unnamed: 0'], inplace=True)
     elif df.columns[0] == '':

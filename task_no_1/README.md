@@ -1,46 +1,50 @@
-# Diamond Analysis & Dashboard Project
+# Diamond Market Intelligence Dashboard
 
-This project provides a comprehensive analysis of the classic Diamonds dataset, including data cleaning, exploratory data analysis (EDA), and an interactive web dashboard for real-time exploration.
+An interactive Streamlit application for exploring and analyzing diamond market data. This project provides insights into the relationships between diamond physical attributes (like carat weight) and their market prices.
 
-## Project Structure
+## Project Structure (task_no_1)
 
-- **`diamonds.csv`**: The primary dataset containing attributes of 53,940 diamonds (carat, cut, color, clarity, price, and dimensions).
-- **`diamonds_eda.ipynb`**: A Jupyter Notebook containing the full EDA process:
-  - Data cleaning and outlier handling.
-  - Correlation analysis (identifying Carat and Dimensions as top price drivers).
-  - Visualization of price distributions and feature relationships.
-- **`app.py`**: A Streamlit-based interactive dashboard that allows users to:
-  - Filter diamonds by price range and cut quality.
-  - Visualize the average price per cut quality using interactive Plotly column charts.
-  - View a dynamic table of the top 10 most expensive diamonds based on active filters.
-- **`correlation_heatmap.png`**: A visualization showing the correlation between various diamond features.
-- **`price_distribution.png`**: A chart showing the frequency distribution of diamond prices in the dataset.
+All project components are organized within the `task_no_1` directory:
 
-## Features
+- **`app.py`**: The primary Streamlit dashboard application.
+  - Features a robust data loading system with dynamic path handling.
+  - Includes interactive sidebar filters for Price Range and Cut Quality.
+  - Displays a high-visibility **Carat vs. Price Analysis** bar chart.
+- **`diamonds.csv`**: The dataset containing records for ~54,000 diamonds.
+- **`README.md`**: Project documentation and instructions.
+- **`diamonds_eda.ipynb`**: Jupyter notebook containing the initial Exploratory Data Analysis.
+- **`check_carat.py`**: A utility script for data validation and statistics.
+- **`correlation_heatmap.png` & `price_distribution.png`**: Static visualizations from the EDA phase.
 
-### EDA Highlights
-- **Outlier Handling**: Removed physically impossible diamonds (those with 0mm dimensions).
-- **Ordinal Encoding**: Converted categorical qualities (Cut, Color, Clarity) into numerical values to quantify their impact on price.
-- **Key Findings**: Confirmed that Carat weight is the strongest predictor of price (~0.92 correlation).
+## Key Features
 
-### Interactive Dashboard
-- **Sidebar Controls**: Real-time filtering for deep dives into specific market segments.
-- **Interactive Plotting**: Plotly-powered column charts with detailed market comparisons.
-- **Top 10 List**: Instant identification of premium diamonds within filtered criteria.
+### Interactive Visualizations
+- **Carat vs. Price Analysis**: A grouped bar chart that visualizes the average price distribution across various carat weight increments (rounded to the nearest 0.2).
+- **Market Premium List**: A real-time updated table showing the Top 10 most expensive diamonds based on the user's active filters.
+
+### Smart Data Handling
+- **Cached Loading**: Uses `@st.cache_data` to ensure the dashboard remains fast and responsive.
+- **Cleaned Data**: Automatically handles redundant index columns and missing headers in the source CSV.
 
 ## Getting Started
 
 ### Prerequisites
-Ensure you have the following Python libraries installed:
+Ensure you have Python installed, then install the required dependencies:
 ```bash
-pip install streamlit pandas plotly seaborn matplotlib nbconvert ipykernel
+pip install streamlit pandas plotly
 ```
 
-### Running the Dashboard
-To launch the interactive dashboard, navigate to this folder and run:
+### Running the App
+From the root of the workspace, run the following command:
 ```bash
+streamlit run task_no_1/app.py
+```
+
+Alternatively, you can navigate into the folder and run it directly:
+```bash
+cd task_no_1
 streamlit run app.py
 ```
 
-### Viewing the EDA
-You can view the pre-rendered analysis in `diamonds_eda.ipynb` using any Jupyter-compatible viewer or by opening it in VS Code.
+## Data Source
+The dashboard uses the classic `diamonds.csv` dataset, which includes attributes such as carat, cut, color, clarity, depth, table, and price for over 50,000 diamonds.
